@@ -434,3 +434,229 @@ function appReducer(state = defaultState, action) {
 // React
 // Notified via React-Redux
 ```
+
+## Actions, Stores and Reducers
+
+### Actions
+
+#### Action Creators
+
+```js
+// action creator
+rateCourse(rating) {
+  return { type: RATE_COURSE, rating: rating } // action object
+}
+
+// action creator has the same name as the action type
+```
+
+### Store
+
+#### Creating Redux Store
+
+```js
+let store = createStore(reducer);
+```
+
+#### Redux Store
+
+```js
+store.dispatch(action);
+
+store.subscribe(listener);
+
+store.getState();
+
+replaceReducer(nextReducer);
+```
+
+### What is Immutability?
+
+Immutability: to change state, return a new object.
+
+#### What's mutable in JS?
+
+<table>
+  <tbody>
+    <tr>
+      <th>Immutable already!</th>
+      <th>Mutable</th>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td>Objects</td>
+    </tr>
+    <tr>
+      <td>String</td>
+      <td>Arrays</td>
+    </tr>
+    <tr>
+      <td>Boolean</td>
+      <td>Functions</td>
+    </tr>
+    <tr>
+      <td>Undefined</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Null</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+```js
+// Current state
+state = {
+  name: 'Cory House',
+  role: 'author',
+};
+
+// Traditional App - Mutating state
+state.role = 'admin';
+return state;
+```
+
+```js
+// Current state
+state = {
+  name: 'Cory House',
+  role: 'author',
+};
+
+// Returning new object. Not mutating state!
+return (state = {
+  name: 'Cory House',
+  role: 'admin',
+});
+```
+
+#### Handling Immutable Data in JS
+
+- Object.assign
+  - Object.assing
+- { ...myObj }
+  - Spread operator
+- .map
+  - Immutable-friendly array methods (map, filter, reduce...)
+
+#### Copy via Object.assign
+
+```js
+// Signature
+Object.assign(target, ...sources);
+
+// Example
+Object.assign({}, state, { role: 'admin' });
+//            First argument should typically be an empty object
+```
+
+#### Copy via Spread
+
+```js
+const newState = { ...state, role: 'admin' };
+//                           Arguments on the right override arguments on the left
+
+const newUsers = [...state.users];
+```
+
+#### Warning: Shallow Copies
+
+```js
+const user = {
+  name: 'Cory',
+  address: {
+    state: 'California',
+  },
+};
+
+// Watch out, it didn't clone the nested address object!
+const userCopy = { ...user };
+
+// This clones the nested address object too
+const userCopy = { ...user, address: { ...user.address } };
+
+// Note: you only need to clone the nested object if you need to change the nested object
+```
+
+#### Warning: only clone what changes
+
+You might be tempted to use deep merging tools like <i>clone-deep</i> or <i>lodash.merge</i>, but avoid blindly deep cloning.
+
+Here's why:
+
+1. Deep cloning is expensive
+2. Deep cloning is typically wasteful -> You only need to clone objects that need to change
+3. Deep cloning causes unnecessary renders
+
+Instead, clone only the sub-object(s) that have changed.
+
+#### Handle Data Changes via Immer
+
+```js
+import produce from 'immer';
+
+const user = {
+  name: 'Cory',
+  address: {
+    state: 'California',
+  },
+};
+
+const userCopy = produce(user, (draftState) => {
+  draftState.address.state = 'New York';
+});
+
+// Immer clones the nested address object for me.
+// You mutate the draft. It handles the necessary clone behind the scenes.
+
+console.log(user.address.state); // California
+console.log(userCopy.address.state); // New York
+```
+
+#### Handling Arrays
+
+<table>
+  <tbody>
+    <tr>
+      <th>Avoid (must clone array first)</th>
+      <th>Prefer (returns a new array)</th>
+    </tr>
+    <tr>
+      <td>push</td>
+      <td>map</td>
+    </tr>
+    <tr>
+      <td>pop</td>
+      <td>filter</td>
+    </tr>
+    <tr>
+      <td>reverse</td>
+      <td>reduce</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>concat</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>spread</td>
+    </tr>
+  </tbody>
+</table>
+
+#### Handling Immutable State
+
+<strong>Native JS</strong>
+
+- Object.assign
+- Spread operator
+- Map, filter, reduce
+
+<strong>Libraries</strong>
+
+- Immer
+- seamless-immutable
+- react-addons-update
+- Immutable.js
+- Many more
