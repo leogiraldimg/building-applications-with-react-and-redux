@@ -660,3 +660,128 @@ console.log(userCopy.address.state); // New York
 - react-addons-update
 - Immutable.js
 - Many more
+
+### Why Immutability?
+
+<table>
+  <tbody>
+    <tr>
+      <th>Flux</th>
+      <th>Redux</th>
+    </tr>
+    <tr>
+      <td>State is mutated</td>
+      <td>State is immutable</td>
+    </tr>
+  </tbody>
+</table>
+
+#### Clarity
+
+- "Huh, who changed that state?"
+- The reducer, stupid!
+
+#### Performance
+
+```js
+state = {
+  name: 'Cory House',
+  role: 'author',
+  city: 'Kansas City',
+  state: 'Kansas',
+  country: 'USA',
+  isFunny: 'Rarely',
+  smellsFunny: 'Often',
+  ...
+};
+```
+
+Normally checks if each of the properties has changed
+
+Redux:
+
+```js
+if (prevStoreState !== storeState) ...
+
+// Remember, !== means "does this reference a different object in memory?"
+```
+
+#### Awesome sauce
+
+Redux Dev Tools:
+
+- Time-travel debugging
+- Undo/Redo
+- Turn off individual actions
+- Play interactions back
+
+### Handling Immutability
+
+#### How Do I Enforce Immutability?
+
+- Trust
+- Warn: redux-immutable-state-invariant
+- Enforce:
+  - Immer
+  - Immutable.js
+  - seamless-immutable
+  - Many more
+
+### Reducers
+
+#### What is a Reducer?
+
+```js
+function myReducer(state, action) {
+  // Return new state based on action passed
+}
+```
+
+```js
+function myReducer(state, action) {
+  switch (action.type) {
+    case 'INCREMENT_COUNTER':
+      // Can't do this:
+      // state.counter++;
+      // But can do this:
+      return { ...state, counter: state.counter + 1 };
+      return state;
+    default:
+      return state;
+  }
+}
+```
+
+Reducers must be pure functions: they should not produce side effects.
+
+#### Forbidden in Reducers
+
+- Mutate arguments
+- Perform side effects
+- Call non-pure functions
+
+---
+
+Reducers should return an updated copy of state.
+Redux will use that copy to update the store.
+
+1 Store. Multiple Reducers.
+
+---
+
+All Reducers Are Called on Each Dispatch
+
+```js
+{ type: DELETE_COURSE, 1 } -> loadStatus, courses, authors -> newState
+// Only yhe reducer(s) that handle the DELETE_COURSE action type will do anything
+```
+
+---
+
+Reducer = Slice of state
+
+<p><i>"Write independent small reducer functions that are each responsible for updates to a specific slice of state. We call this pattern 'reducer composition'. A given action could be handled by all, some, or none of them."</i></p>
+<p><strong>Redux FAQ</strong></p>
+
+Each action can be handled by multiple reducers.
+Each reducer can handle multiple actions.
