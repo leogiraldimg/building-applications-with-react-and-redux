@@ -785,3 +785,102 @@ Reducer = Slice of state
 
 Each action can be handled by multiple reducers.
 Each reducer can handle multiple actions.
+
+## Connecting React to Redux
+
+### Container vs. Presentational Components
+
+#### Two Component Types
+
+<table>
+  <tbody>
+    <tr>
+      <th>Container</th>
+      <th>Presentational</th>
+    </tr>
+    <tr>
+      <td>Focus on how things work</td>
+      <td>Focus on how things look</td>
+    </tr>
+    <tr>
+      <td>Aware of Redux</td>
+      <td>Unaware of Redux</td>
+    </tr>
+    <tr>
+      <td>Subscribe to Redux State</td>
+      <td>Read data from props</td>
+    </tr>
+    <tr>
+      <td>Dispatch Redux actions</td>
+      <td>Invoke callbacks on props</td>
+    </tr>
+  </tbody>
+</table>
+
+### React-Redux Introduction
+
+react-redux is a separate library because Redux isn't exclusive to React.
+
+#### React-Redux
+
+- Provider
+  - Attaches app to store
+- Connect
+  - Creates container components
+
+#### React-Redux Provider
+
+```js
+<Provider store={this.props.store}>
+  <App />
+</Provider>
+
+// Wrapping your App in provider makes the Redux store accessible to every component in your app
+```
+
+#### Connect
+
+Wraps out component so it's connected to the Redux store.
+
+```js
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorPage);
+```
+
+#### Flux
+
+```js
+componentWillMount() {
+  AuthorStore.addChangeListener(this.onChange);
+}
+```
+
+```js
+componentWillMount() {
+  AuthorStore.removeChangeListener(this.onChange);
+}
+```
+
+```js
+onChange() {
+  this.setState({ authors: AuthorStore.getAll() });
+}
+```
+
+#### Redux
+
+```js
+function mapStateToProps(state, ownProps) {
+  return { authors: state.authors };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorPage);
+//                     What state do you  What actions do you
+//                     want to pass to    want to pass to your
+//                     your component?    component?
+```
+
+Benefits:
+
+1. No manual unsubscribe
+2. Declare what subset of state you want
+3. Enhanced performance for free
