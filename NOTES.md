@@ -1020,3 +1020,25 @@ Store -> Thanks for updating the state reducer. I'll make sure that all connecte
 React-Redux -> Woah, thanks for the new data Mr. Store. I'll now intelligently determine if I should tell React about this change so that it only has to bother with updating the UI when necessary.
 
 React -> Ooo! Shiny new data has been passed down via props from the store! I'll update the UI to reflect this!
+
+## Redux Flow
+
+### Intro
+
+#### Initial Redux Setup
+
+1. Create action
+2. Create reducer
+3. Create root reducer
+4. Configure store
+5. Instantiate store
+6. Connect component
+7. Pass props via connect
+8. Dispatch action
+
+#### Add feature
+
+1. Create action
+2. Enhance reducer
+3. Connect component
+4. Dispatch action
