@@ -884,3 +884,139 @@ Benefits:
 1. No manual unsubscribe
 2. Declare what subset of state you want
 3. Enhanced performance for free
+
+### mapStateToProps
+
+#### React-Redux Connect
+
+```js
+connect(mapStateToProps, mapDispatchToProps);
+//            |
+// What state should I expose as props?
+```
+
+```js
+function mapStateToProps(state) {
+  return {
+    appState: state, // In My component, I could call this.props.appState to access Redux store data.
+    users: state.users, // Being specific here improves performance. The component will only re-render when this specific data changes. So specify the data you component needs here.
+  };
+}
+```
+
+#### Reselect
+
+Memoize for performance
+
+```js
+const getAllCoursesSelector = (state) => state.courses;
+
+export const getCoursesSorted = createSelector(
+  getAllCoursesSelector,
+  (courses) => {
+    return [...courses].sort((a, b) =>
+      a.title.localeCompare(b.title, 'en', { sensitivity: 'base' })
+    );
+  }
+);
+```
+
+### mapDispatchToProps
+
+#### React-Redux Connect
+
+```js
+connect(mapStateToProps, mapDispatchToProps);
+//                                |
+//                  What actions do I want on props?
+```
+
+```js
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch),
+  };
+}
+```
+
+#### 4 ways to Handle mapDispatchToProps
+
+1. Ignore it
+2. Wrap manually
+3. bindActionCreators
+4. Return object
+
+#### Option 1: Use Dispatch Directly
+
+```js
+// In component...
+this.props.dispatch(loadCourses());
+```
+
+Two downsides
+
+1. Boilerplate
+2. Redux concerns in child components
+
+#### Option 2: Wrap Manually
+
+```js
+function mapDispatchToProps(dispatch) {
+  return {
+    loadCourses: () => {
+      dispatch(loadCourses());
+    },
+    createCourse: (course) => {
+      dispatch(createCourse(course));
+    },
+    updateCourse: (course) => {
+      dispatch(updateCourse(course));
+    },
+  };
+}
+
+// Note that I'm wrapping each
+// call to my action creators in an
+// anonymous function that calls dispatch
+
+// In component...
+this.props.loadCourses();
+```
+
+#### Option 3: bindActionCreators
+
+```js
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch), // Wraps action creators in dispatch call or you
+  };
+}
+
+// In component...
+this.props.actions.loadCourses();
+```
+
+#### Option 4: mapDispatchToProps as Object
+
+```js
+const mapDispatchToProps = {
+  loadCourses, // Wrapped in dispatch automatically
+};
+
+// In component...
+this.props.loadCourses();
+```
+
+### A Chat with Redux
+
+React -> Hey CourseAction, someone clicked this "Save course" button.
+
+Action -> Thanks React! I will dispatch an action so reducers that care can update state.
+
+Reducer -> Ah, thanks action. I see you passed me the current state and the action to perform. I'll make a new copy of the state and return it.
+
+Store -> Thanks for updating the state reducer. I'll make sure that all connected components are aware.
+
+React-Redux -> Woah, thanks for the new data Mr. Store. I'll now intelligently determine if I should tell React about this change so that it only has to bother with updating the UI when necessary.
+
+React -> Ooo! Shiny new data has been passed down via props from the store! I'll update the UI to reflect this!
