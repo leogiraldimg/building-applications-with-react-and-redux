@@ -1042,3 +1042,44 @@ React -> Ooo! Shiny new data has been passed down via props from the store! I'll
 2. Enhance reducer
 3. Connect component
 4. Dispatch action
+
+### Redux Flow
+
+#### Binding Classes
+
+```js
+<input
+  type="text"
+  onChange={this.handleChange.bind(this)} // This isn't ideal since a new function is allocated on every render
+  value={this.state.course.title}
+/>
+
+constructor(props) {
+  super(props);
+
+  this.state = {
+    course: {
+      title: '',
+    },
+  };
+
+  this.handleChange = this.handleChange.bind(this); // Now the function is only bound once
+}
+
+// Arrow functions inherit the binding context of their enclosing scope
+// Basically, in arrow funcs the this keyword works like ya want it to
+handleChange = (event) => {
+  const course = { ...this.state.course, title: event.target.value };
+  this.setState({ course });
+};
+
+// Again, this is called a class field
+class CoursesPage extends React.Component {
+  state = {
+    course: {
+      title: '',
+    },
+  };
+  ...
+}
+```
