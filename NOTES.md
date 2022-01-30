@@ -1083,3 +1083,10 @@ class CoursesPage extends React.Component {
   ...
 }
 ```
+
+#### Handle submit
+
+```js
+// By attaching an onSubmit handler to the form, both the submit button and the enter key will submit the form
+<form onSubmit={this.handleSubmit}>
+```
