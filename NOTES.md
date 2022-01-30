@@ -1100,3 +1100,54 @@ export function createCourse(course) {
   return { type: 'CREATE_COURSE', course: course };
 }
 ```
+
+### Create Course Reducer and Root Reducer
+
+Reducer: function that accepts state and action and returns a new state.
+
+```js
+export default function courseReducer(state = [], action) {
+  switch (action.type) {
+    case 'CREATE_COURSE':
+      state.push(action.course); // Don't do this. This mutates state.
+  }
+}
+```
+
+```js
+export default function courseReducer(state = [], action) {
+  switch (action.type) {
+    case 'CREATE_COURSE':
+      return [...state, { ...action.course }];
+    default:
+      return state; // If the reducer receives an action that it doesn't care about, it should return the unchanged state.
+  }
+}
+
+// You don't have to use a switch statement. Check the Redux docs for alternative patterns.
+// Remember: each reducer handles a "slice" of state. (a portion of the entire Redux store)
+```
+
+Our Store:
+
+```js
+const courses = [
+  { id: 1, title: 'Course 1' },
+  { id: 2, title: 'Course 2' },
+];
+
+// courses.find(c => c.id == 2)
+```
+
+By ID:
+
+```js
+const courses = {
+  1: { id: 1, title: 'Course 1' },
+  2: { id: 2, title: 'Course 2' },
+};
+
+// courses[2]
+```
+
+[Normalizing State Shape](https://redux.js.org/usage/structuring-reducers/normalizing-state-shape)
