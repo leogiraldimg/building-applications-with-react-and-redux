@@ -85,7 +85,7 @@ Flux Flavors Timeline
 
 ### createClass Component
 
-```js
+```javascript
 var HelloWorld = React.createClass({
   render: function () {
     return <h1>Hello World</h1>;
@@ -95,7 +95,7 @@ var HelloWorld = React.createClass({
 
 ### Class Component
 
-```js
+```javascript
 class HelloWorld extends React.Component {
   constructor(props) {
     super(props);
@@ -111,7 +111,7 @@ class HelloWorld extends React.Component {
 
 ### Function Component
 
-```js
+```javascript
 function HelloWorld(props) {
   return <h1>Hello World</h1>;
 }
@@ -121,7 +121,7 @@ function HelloWorld(props) {
 
 You can omit the return keyword if the code on the right is a single expression:
 
-```js
+```javascript
 const HelloWorld = (props) => <h1>Hello World</h1>;
 ```
 
@@ -417,7 +417,7 @@ Action -> Store -> React
 
 </pre>
 
-```js
+```javascript
 // Action -> { type: RATE_COURSE, rating: 5 }
 //              ^
 //              |
@@ -441,7 +441,7 @@ function appReducer(state = defaultState, action) {
 
 #### Action Creators
 
-```js
+```javascript
 // action creator
 rateCourse(rating) {
   return { type: RATE_COURSE, rating: rating } // action object
@@ -454,13 +454,13 @@ rateCourse(rating) {
 
 #### Creating Redux Store
 
-```js
+```javascript
 let store = createStore(reducer);
 ```
 
 #### Redux Store
 
-```js
+```javascript
 store.dispatch(action);
 
 store.subscribe(listener);
@@ -505,7 +505,7 @@ Immutability: to change state, return a new object.
   </tbody>
 </table>
 
-```js
+```javascript
 // Current state
 state = {
   name: 'Cory House',
@@ -517,7 +517,7 @@ state.role = 'admin';
 return state;
 ```
 
-```js
+```javascript
 // Current state
 state = {
   name: 'Cory House',
@@ -542,7 +542,7 @@ return (state = {
 
 #### Copy via Object.assign
 
-```js
+```javascript
 // Signature
 Object.assign(target, ...sources);
 
@@ -553,7 +553,7 @@ Object.assign({}, state, { role: 'admin' });
 
 #### Copy via Spread
 
-```js
+```javascript
 const newState = { ...state, role: 'admin' };
 //                           Arguments on the right override arguments on the left
 
@@ -562,7 +562,7 @@ const newUsers = [...state.users];
 
 #### Warning: Shallow Copies
 
-```js
+```javascript
 const user = {
   name: 'Cory',
   address: {
@@ -593,7 +593,7 @@ Instead, clone only the sub-object(s) that have changed.
 
 #### Handle Data Changes via Immer
 
-```js
+```javascript
 import produce from 'immer';
 
 const user = {
@@ -683,7 +683,7 @@ console.log(userCopy.address.state); // New York
 
 #### Performance
 
-```js
+```javascript
 state = {
   name: 'Cory House',
   role: 'author',
@@ -700,7 +700,7 @@ Normally checks if each of the properties has changed
 
 Redux:
 
-```js
+```javascript
 if (prevStoreState !== storeState) ...
 
 // Remember, !== means "does this reference a different object in memory?"
@@ -731,13 +731,13 @@ Redux Dev Tools:
 
 #### What is a Reducer?
 
-```js
+```javascript
 function myReducer(state, action) {
   // Return new state based on action passed
 }
 ```
 
-```js
+```javascript
 function myReducer(state, action) {
   switch (action.type) {
     case 'INCREMENT_COUNTER':
@@ -771,7 +771,7 @@ Redux will use that copy to update the store.
 
 All Reducers Are Called on Each Dispatch
 
-```js
+```javascript
 { type: DELETE_COURSE, 1 } -> loadStatus, courses, authors -> newState
 // Only yhe reducer(s) that handle the DELETE_COURSE action type will do anything
 ```
@@ -830,7 +830,7 @@ react-redux is a separate library because Redux isn't exclusive to React.
 
 #### React-Redux Provider
 
-```js
+```javascript
 <Provider store={this.props.store}>
   <App />
 </Provider>
@@ -842,25 +842,25 @@ react-redux is a separate library because Redux isn't exclusive to React.
 
 Wraps out component so it's connected to the Redux store.
 
-```js
+```javascript
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorPage);
 ```
 
 #### Flux
 
-```js
+```javascript
 componentWillMount() {
   AuthorStore.addChangeListener(this.onChange);
 }
 ```
 
-```js
+```javascript
 componentWillMount() {
   AuthorStore.removeChangeListener(this.onChange);
 }
 ```
 
-```js
+```javascript
 onChange() {
   this.setState({ authors: AuthorStore.getAll() });
 }
@@ -868,7 +868,7 @@ onChange() {
 
 #### Redux
 
-```js
+```javascript
 function mapStateToProps(state, ownProps) {
   return { authors: state.authors };
 }
@@ -889,13 +889,13 @@ Benefits:
 
 #### React-Redux Connect
 
-```js
+```javascript
 connect(mapStateToProps, mapDispatchToProps);
 //            |
 // What state should I expose as props?
 ```
 
-```js
+```javascript
 function mapStateToProps(state) {
   return {
     appState: state, // In My component, I could call this.props.appState to access Redux store data.
@@ -908,7 +908,7 @@ function mapStateToProps(state) {
 
 Memoize for performance
 
-```js
+```javascript
 const getAllCoursesSelector = (state) => state.courses;
 
 export const getCoursesSorted = createSelector(
@@ -925,13 +925,13 @@ export const getCoursesSorted = createSelector(
 
 #### React-Redux Connect
 
-```js
+```javascript
 connect(mapStateToProps, mapDispatchToProps);
 //                                |
 //                  What actions do I want on props?
 ```
 
-```js
+```javascript
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
@@ -948,7 +948,7 @@ function mapDispatchToProps(dispatch) {
 
 #### Option 1: Use Dispatch Directly
 
-```js
+```javascript
 // In component...
 this.props.dispatch(loadCourses());
 ```
@@ -960,7 +960,7 @@ Two downsides
 
 #### Option 2: Wrap Manually
 
-```js
+```javascript
 function mapDispatchToProps(dispatch) {
   return {
     loadCourses: () => {
@@ -985,7 +985,7 @@ this.props.loadCourses();
 
 #### Option 3: bindActionCreators
 
-```js
+```javascript
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch), // Wraps action creators in dispatch call or you
@@ -998,7 +998,7 @@ this.props.actions.loadCourses();
 
 #### Option 4: mapDispatchToProps as Object
 
-```js
+```javascript
 const mapDispatchToProps = {
   loadCourses, // Wrapped in dispatch automatically
 };
@@ -1047,7 +1047,7 @@ React -> Ooo! Shiny new data has been passed down via props from the store! I'll
 
 #### Binding Classes
 
-```js
+```javascript
 <input
   type="text"
   onChange={this.handleChange.bind(this)} // This isn't ideal since a new function is allocated on every render
@@ -1086,14 +1086,14 @@ class CoursesPage extends React.Component {
 
 #### Handle submit
 
-```js
+```javascript
 // By attaching an onSubmit handler to the form, both the submit button and the enter key will submit the form
 <form onSubmit={this.handleSubmit}>
 ```
 
 ### Create course action
 
-```js
+```javascript
 // This object is an "action". So the function is called the "action creator".
 // All actions must have a type property
 export function createCourse(course) {
@@ -1105,7 +1105,7 @@ export function createCourse(course) {
 
 Reducer: function that accepts state and action and returns a new state.
 
-```js
+```javascript
 export default function courseReducer(state = [], action) {
   switch (action.type) {
     case 'CREATE_COURSE':
@@ -1114,7 +1114,7 @@ export default function courseReducer(state = [], action) {
 }
 ```
 
-```js
+```javascript
 export default function courseReducer(state = [], action) {
   switch (action.type) {
     case 'CREATE_COURSE':
@@ -1130,7 +1130,7 @@ export default function courseReducer(state = [], action) {
 
 Our Store:
 
-```js
+```javascript
 const courses = [
   { id: 1, title: 'Course 1' },
   { id: 2, title: 'Course 2' },
@@ -1141,7 +1141,7 @@ const courses = [
 
 By ID:
 
-```js
+```javascript
 const courses = {
   1: { id: 1, title: 'Course 1' },
   2: { id: 2, title: 'Course 2' },
@@ -1156,13 +1156,30 @@ const courses = {
 
 Redux middleware is a way to enhance Redux's behavior.
 
-```js
+```javascript
 // This will warn us if we accidentally mutate Redux state.
 applyMiddleware(reduxImmutableStateInvariant());
 ```
 
-```js
+```javascript
 // Add support to Redux Dev Tools.
 const composeEnhancers =
   windows.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+```
+
+### Instantiate Store and Provider
+
+```javascript
+import configureStore from './redux/configureStore';
+
+// It can be useful to pass initial state
+// into the store here if you're server
+// rendering or initializing your Redux
+// store with data from localStorage.
+const store = configureStore();
+```
+
+```javascript
+// This will provide Redux store data to our React components.
+import { Provider as ReduxProvider } from 'react-redux';
 ```
