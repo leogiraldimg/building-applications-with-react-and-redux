@@ -1090,3 +1090,13 @@ class CoursesPage extends React.Component {
 // By attaching an onSubmit handler to the form, both the submit button and the enter key will submit the form
 <form onSubmit={this.handleSubmit}>
 ```
+
+### Create course action
+
+```js
+// This object is an "action". So the function is called the "action creator".
+// All actions must have a type property
+export function createCourse(course) {
+  return { type: 'CREATE_COURSE', course: course };
+}
+```
