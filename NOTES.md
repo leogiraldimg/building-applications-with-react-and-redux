@@ -1151,3 +1151,18 @@ const courses = {
 ```
 
 [Normalizing State Shape](https://redux.js.org/usage/structuring-reducers/normalizing-state-shape)
+
+### Create Store
+
+Redux middleware is a way to enhance Redux's behavior.
+
+```js
+// This will warn us if we accidentally mutate Redux state.
+applyMiddleware(reduxImmutableStateInvariant());
+```
+
+```js
+// Add support to Redux Dev Tools.
+const composeEnhancers =
+  windows.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+```
