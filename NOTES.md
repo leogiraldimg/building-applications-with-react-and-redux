@@ -1183,3 +1183,34 @@ const store = configureStore();
 // This will provide Redux store data to our React components.
 import { Provider as ReduxProvider } from 'react-redux';
 ```
+
+### Connect Container Component
+
+```javascript
+// Connect returns a function. That function then calls our component.
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+
+// mapStateToProps -> This func determines what state is passed to our component via props.
+function mapStateToProps(state, ownProps) {
+  return {
+    courses: state.courses, // Be specific. Request only the data your component needs.
+  };
+}
+
+// mapDispatchToProps -> This lets us declare what actions to pass to our component on props.
+// When we omit mapDispatchToProps, our component gets a dispatch props injected automatically.
+```
+
+```javascript
+// Since we didn't declare mapDispatchToProps, connect automatically adds Dispatch as a prop.
+// Remember: you have to dispatch an action. If you just call an action
+// creator it won't do anything. Action creators just return an object.
+handleSubmit = (event) => {
+  event.preventDefault();
+  this.props.dispatch(courseActions.createCourse(this.state.course));
+};
+
+...
+
+export default connect(mapStateToProps)(CoursesPage);
+```
