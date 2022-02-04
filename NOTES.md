@@ -1214,3 +1214,15 @@ handleSubmit = (event) => {
 
 export default connect(mapStateToProps)(CoursesPage);
 ```
+
+### Step through Redux Flow and Try Redux DevTools
+
+```javascript
+{
+  this.props.courses.map((course) => {
+    <div key={course.title}>{course.title}</div>;
+  });
+}
+
+// Keys help React track each array element
+```
