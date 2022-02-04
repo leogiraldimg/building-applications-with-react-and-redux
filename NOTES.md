@@ -1226,3 +1226,43 @@ export default connect(mapStateToProps)(CoursesPage);
 
 // Keys help React track each array element
 ```
+
+### mapDispatchToProps: Manual Mapping
+
+```javascript
+//                                      This determines what actions are
+//                                      available on props in our component.
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+```
+
+```javascript
+function mapDispatchToProps(dispatch) {
+  return {
+    //                        Remember, if you don't call dispatch, nothing
+    //                        will happen. Action creators must be called
+    //                        by dispatch.
+    createCourse: (course) => dispatch(courseActions.createCourse(course)),
+  };
+}
+```
+
+```javascript
+handleSubmit = (event) => {
+  event.preventDefault();
+  this.props.createCourse(this.state.course);
+  //        We don't need to call dispatch here
+  //        since that's being handled in mapDispatchToProps
+  //        now. :)
+};
+```
+
+```javascript
+// Since we declared mapDispatchToProps,
+// dispatch is no longer injected. Only the
+// actions we declared in mapDispatchToProps
+// are passed in.
+CoursesPage.propTypes = {
+  courses: PropTypes.array.isRequired,
+  createCourse: PropTypes.func.isRequired,
+};
+```
