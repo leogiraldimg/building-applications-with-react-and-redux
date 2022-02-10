@@ -1266,3 +1266,24 @@ CoursesPage.propTypes = {
   createCourse: PropTypes.func.isRequired,
 };
 ```
+
+### mapDispatchToProps: bindActionCreators
+
+```javascript
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(courseActions, dispatch),
+  };
+}
+```
+
+### mapDispatchToProps: Object Form
+
+```javascript
+// When declared as an object,
+// each property is automatically
+// bound to dispatch
+const mapDispatchToProps = {
+  createCourse: courseActions.createCourse,
+};
+```
