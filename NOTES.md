@@ -1287,3 +1287,33 @@ const mapDispatchToProps = {
   createCourse: courseActions.createCourse,
 };
 ```
+
+### Action Type Constants
+
+- [Reducing Boilerplate](https://redux.js.org/usage/reducing-boilerplate)
+
+```javascript
+// actionTypes.js
+export const CREATE_COURSE = 'CREATE_COURSE';
+
+// courseActions.js
+import * as types from './actionTypes';
+
+export function createCourse(course) {
+  return { type: types.CREATE_COURSE, course };
+}
+
+// courseReducer.js
+import * as types from '../actions/actionTypes';
+
+export default function courseReducer(state = [], action) {
+  switch (action.type) {
+    case types.CREATE_COURSE:
+      return [...state, { ...action.course }];
+    default:
+      return state;
+  }
+}
+
+// Now we can't make a typo. We get compile-time safety too 😉
+```
