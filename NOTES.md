@@ -1317,3 +1317,15 @@ export default function courseReducer(state = [], action) {
 
 // Now we can't make a typo. We get compile-time safety too 😉
 ```
+
+## Async in Redux
+
+### Why Mock API?
+
+- Start before the API exists
+- Independence
+- Backup plan
+- Ultra-fast
+- Test slowness
+- Aids testing
+- Point to the real API later
