@@ -1370,3 +1370,47 @@ new webpack.DefinePlugin({
 
 // Now webpack will replace process.env.API_URL anywhere in our code with the URL we've specified
 ```
+
+### Middleware and Async Library Options
+
+#### Redux Middleware
+
+<pre>
+action -> middleware -> reducer
+              |
+You can write custom logic that runs here.
+</pre>
+
+- Handling async API calls
+- Logging
+- Crash reporting
+- Routing
+
+#### Custom Logger Middleware
+
+```javascript
+// Logs all actions and states after they are dispatched
+const logger = (store) => (next) => (action) => {
+  console.group(action.type);
+  console.info('dispatching', action);
+  let result = next(action);
+  console.log('next state', store.getState());
+  console.groupEnd();
+  return result;
+};
+```
+
+#### Redux Async Libraries
+
+- redux-thunk -> Returns functions from action creators
+- redux-promise -> Use promises for async
+- redux-observable -> Use RxJS observables
+- redux-saga -> Use generators
+
+#### Comparison
+
+| Thunks         | Sagas         |
+| -------------- | ------------- |
+| Functions      | Generators    |
+| Clunky to test | Easy to test  |
+| Easy to learm  | Hard to learn |
