@@ -1414,3 +1414,44 @@ const logger = (store) => (next) => (action) => {
 | Functions      | Generators    |
 | Clunky to test | Easy to test  |
 | Easy to learm  | Hard to learn |
+
+### Thunk Introduction
+
+```javascript
+export function deleteAuthor(authorId) {
+  return (dispatch, getState) => {
+    return AuthorApi.deleteAuthor(authorId)
+      .then(() => {
+        dispatch(deletedAuthor(authorId));
+      })
+      .catch(handleError);
+  };
+}
+```
+
+Thunk: a function that wraps an expression to delay its evaluation.
+
+[Github repository](https://github.com/reduxjs/redux-thunk/blob/master/src/index.ts)
+
+Middleware is not _required_ to support async in Redux. But you probably want it.
+
+Same example without Thunk:
+
+```javascript
+//                           Thunk pass dispatch in for me so I do not have to
+export function deleteAuthor(dispatch, authorId) {
+  return AuthorApi.deleteAuthor(authorId)
+    .then(() => {
+      dispatch(deletedAuthor(authorId));
+    })
+    .catch(handleError);
+}
+```
+
+The big win with Thunks: your component can call sync an async action the same way.
+
+#### Why Use Async Middleware?
+
+- Consistency
+- Purity
+- Easier testing
