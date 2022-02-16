@@ -1329,3 +1329,44 @@ export default function courseReducer(state = [], action) {
 - Test slowness
 - Aids testing
 - Point to the real API later
+
+### Mock API Setup
+
+```json
+// package.json
+"scripts": {
+  "start": "webpack serve --config webpack.config.dev.js --port 3000",
+  "start:api": "node tools/apiServer.js",
+  "prestart:api": "node tools/createMockDb.js"
+},
+
+// prestart:api will run before start:api because it has the same name, with pre on the front
+```
+
+This mock db (db.json) is created each time we start the API. This assures the api starts with good data.
+
+http://localhost:3001/courses
+http://localhost:3001/authors
+
+```json
+// package.json
+"scripts": {
+  "start": "run-p",
+  "start:dev": "webpack serve --config webpack.config.dev.js --port 3000",
+  "start:api": "node tools/apiServer.js",
+  "prestart:api": "node tools/createMockDb.js"
+},
+
+// "run-p" allows us to run multiple npm scripts at the same time
+```
+
+Centralize all the app's API calls in /api
+
+```javascript
+// webpack.config.dev.js
+new webpack.DefinePlugin({
+  'process.env.API_URL': JSON.stringify('http://localhost:3001'),
+}),
+
+// Now webpack will replace process.env.API_URL anywhere in our code with the URL we've specified
+```
