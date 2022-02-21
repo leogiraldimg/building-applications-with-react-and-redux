@@ -1455,3 +1455,17 @@ The big win with Thunks: your component can call sync an async action the same w
 - Consistency
 - Purity
 - Easier testing
+
+#### Add First Thunk
+
+```javascript
+import * as types from './actionTypes';
+import * as courseApi from '../../api/courseApi';
+
+export function loadCourses() {
+  return function (dispatch) {
+    // Redux thunk injects dispatch so we don't have to.
+    // Action
+  };
+}
+```
