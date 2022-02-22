@@ -1496,3 +1496,25 @@ const mapDispatchToProps = {
   loadAuthors
 },
 ```
+
+### Convert Class Component to Function Component with Hooks
+
+- Hooks allow us to handle state and side effects (think lifecycle methods) in function components
+
+```javascript
+useEffect(() => {
+  if (courses.length === 0) {
+    loadCourses().catch((error) => {
+      alert('Loading courses failed' + error);
+    });
+  }
+
+  if (authors.length === 0) {
+    loadAuthors().catch((error) => {
+      alert('Loading authors failed' + error);
+    });
+  }
+}, []);
+
+// The empty array as a second argument to effect means the effect will run once when the component mounts.
+```
