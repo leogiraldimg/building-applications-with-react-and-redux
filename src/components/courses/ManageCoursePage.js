@@ -34,7 +34,7 @@ ManageCoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
-  loadAuthors: PropTypes.func.isRequired
+  loadAuthors: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -46,7 +46,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   loadCourses,
-  loadAuthors
-},
+  loadAuthors,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
