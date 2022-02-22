@@ -1471,3 +1471,28 @@ export function loadCourses() {
 ```
 
 ## Async Writes in Redux
+
+### Implement Object Form of mapDispatchToProps
+
+- If we declare mapDispatchToProps as an object instead, each property will automatically be bound to dispatch:
+
+```javascript
+const mapDispatchToProps = {
+  loadCourses: courseActions.loadCourses,
+  loadAuthors: authorActions.loadAuthors,
+},
+
+// More consise
+// The names in mapDispatchToProps are the same as the unbound thunks we imported at the top.
+// The mapDispatchToProps passes the *bound* action creator in on props, under the same name.
+// The bound action passed in on props "wins". (function scope takes precedence over module scope).
+import { loadCourses } from '../../redux/actions/courseActions';
+import { loadAuthors } from '../../redux/actions/authorActions';
+
+...
+
+const mapDispatchToProps = {
+  loadCourses,
+  loadAuthors
+},
+```
