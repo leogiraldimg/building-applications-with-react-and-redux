@@ -1456,7 +1456,7 @@ The big win with Thunks: your component can call sync an async action the same w
 - Purity
 - Easier testing
 
-#### Add First Thunk
+### Add First Thunk
 
 ```javascript
 import * as types from './actionTypes';
