@@ -1589,3 +1589,19 @@ export default function courseReducer(state = initialState.courses, action) {
   }
 }
 ```
+
+### Dispatch Create and Update
+
+```javascript
+function ManageCoursePage({
+  courses,
+  authors,
+  loadAuthors,
+  loadCourses,
+  // Now calling saveCourse in our component will call
+  // the saveCourse function we just bound to dispatch
+  // in mapDispatchToProps.
+  saveCourse,
+  ...props
+}) {
+```
