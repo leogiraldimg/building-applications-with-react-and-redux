@@ -1546,3 +1546,24 @@ function handleChange(event) {
   }));
 }
 ```
+
+### Add Save Course Thunk and Action Creators
+
+```javascript
+export function saveCourse(course) {
+  // eslint-disable-next-line no-unused-vars
+  return function (dispatch, getState) {
+    //                       getState lets us access the Redux store data.
+    return courseApi
+      .saveCourse(course)
+      .then((savedCourse) => {
+        course.id
+          ? dispatch(updateCourseSuccess(savedCourse))
+          : dispatch(createCourseSuccess(savedCourse));
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+```
