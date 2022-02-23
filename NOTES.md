@@ -1518,3 +1518,8 @@ useEffect(() => {
 
 // The empty array as a second argument to effect means the effect will run once when the component mounts.
 ```
+
+### Call CourseForm on ManageCoursePage
+
+- Avoid using Redux for all state. Use plain React state for data only few components use. (such as form state).
+- To choose Redux vs. local state, ask: "Who cares about this data?". If only a few closely related components use the data, prefer plain React state.
