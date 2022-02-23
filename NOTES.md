@@ -1523,3 +1523,26 @@ useEffect(() => {
 
 - Avoid using Redux for all state. Use plain React state for data only few components use. (such as form state).
 - To choose Redux vs. local state, ask: "Who cares about this data?". If only a few closely related components use the data, prefer plain React state.
+
+### Implement Centralized Change Handler
+
+```javascript
+function handleChange(event) {
+  // This descructure avoids the event getting garbage collected so that
+  // it's available within the nested setCourse callback.
+  const { name, value } = event.target;
+
+  // I'm using the functional form of setState so
+  // I can safely set new state that's based on
+  // the existing state.
+  setCourse((prevCourse) => ({
+    ...prevCourse,
+    // This is JavaScript's computed syntax. It allows
+    // us to reference a property via a variable.
+    [name]: name === 'authorId' ? parseInt(value, 10) : value,
+    //                                     Events returns numbers as strings,
+    //                                     so we need to convert authorId
+    //                                     to an int here.
+  }));
+}
+```
