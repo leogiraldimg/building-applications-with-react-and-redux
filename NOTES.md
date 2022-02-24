@@ -1605,3 +1605,31 @@ function ManageCoursePage({
   ...props
 }) {
 ```
+
+### Redirect via React Router's History
+
+```javascript
+function handleSave(event) {
+  event.preventDefault();
+  saveCourse(course).then(() => {
+    // So you can use <Redirect>
+    // or history to redirect
+    history.pushState('/courses');
+  });
+}
+```
+
+```javascript
+ManageCoursePage.propTypes = {
+  course: PropTypes.object.isRequired,
+  courses: PropTypes.array.isRequired,
+  authors: PropTypes.array.isRequired,
+  loadCourses: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
+  saveCourse: PropTypes.func.isRequired,
+  // Any component loaded via <Route>
+  // gets history passed in on props
+  // from React Router
+  history: PropTypes.object.isRequired,
+};
+```
