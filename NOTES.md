@@ -1633,3 +1633,46 @@ ManageCoursePage.propTypes = {
   history: PropTypes.object.isRequired,
 };
 ```
+
+### Populate Form via mapStateToProps
+
+```javascript
+//                              This lets us access the component's props.
+//                              We can use this to read the URL data injected
+//                              on props by React Router.
+function mapStateToProps(state, ownProps) {
+  return {
+    course: newCourse,
+    courses: state.courses,
+    authors: state.authors,
+  };
+}
+```
+
+```javascript
+// This is a selector. It selects data from the Redux Store.
+// You could declare this in the course reducer for easy reuse.
+// For performance, you could memoize using reselect.
+export function getCourseBySlug(courses, slug) {
+  return courses.find((course) => course.slug === slug) || null;
+}
+```
+
+```javascript
+function mapStateToProps(state, ownProps) {
+  const slug = ownProps.match.params.slug;
+  const course =
+    slug && state.courses.length > 0
+      ? // mapStateToProps runs every time the Redux
+        // store changes. So when courses are available,
+        // we'll call getCourseBySlug.
+        getCourseBySlug(state.courses, slug)
+      : newCourse;
+
+  return {
+    course,
+    courses: state.courses,
+    authors: state.authors,
+  };
+}
+```
