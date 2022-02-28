@@ -1676,3 +1676,15 @@ function mapStateToProps(state, ownProps) {
   };
 }
 ```
+
+## Async Status and Error Handling
+
+### Intro
+
+Problems:
+
+- Problem 1: No loading indicator on course list
+- Problem 2: No loading indicator when saving a course
+- Problem 3: No loading indicator when loading a course
+
+Solution: display spinner while loading
