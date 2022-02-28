@@ -1692,3 +1692,7 @@ Solution: display spinner while loading
 ### Create API Status Actions
 
 - Remember: an action can be handled by multiple reducers
+
+### Call Begin API in Thunks
+
+Optimistic update: update the UI before the API call is complete.
