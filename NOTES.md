@@ -1688,3 +1688,7 @@ Problems:
 - Problem 3: No loading indicator when loading a course
 
 Solution: display spinner while loading
+
+### Create API Status Actions
+
+- Remember: an action can be handled by multiple reducers
