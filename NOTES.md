@@ -1696,3 +1696,7 @@ Solution: display spinner while loading
 ### Call Begin API in Thunks
 
 Optimistic update: update the UI before the API call is complete.
+
+### Add Spinner to Course Pages
+
+Prefer fragments over divs since fragments avoid creating needless elements in the DOM.
