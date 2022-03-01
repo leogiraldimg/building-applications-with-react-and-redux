@@ -1765,3 +1765,70 @@ async function handleSaveCourse(course) {
 ```
 
 Benefit: your async functions are explicity marked.
+
+## Testing React
+
+### Testing Frameworks and Libraries
+
+#### Test Frameworks
+
+- Jest
+- Mocha
+- Jasmine
+- Tape
+- AVA
+
+#### Helper Libraries
+
+- React Test Utils
+- Enzyme
+- React Testing Library
+
+##### React Test Utils
+
+- Specifically for React
+- Built by Facebook
+- Verbose API
+
+Two rendering options:
+
+- shallowRender:
+  - Render single component
+  - No DOM required
+  - Fast and Simple
+- renderIntoDocument:
+  - Render component and children
+  - DOM required
+  - Supports simulating interactions
+
+DOM interactions:
+
+- findRenderedDOMComponentWithTag
+- scryRenderedDOMComponentsWithTag
+- Simulate
+  - Clicks
+  - Keypresses
+  - Etc.
+
+More: reactjs.org/docs/test-utils.html
+
+##### Why Enzyme?
+
+| React Test Utils                   | Enzyme |
+| ---------------------------------- | ------ |
+| findRenderedDOMComponentWithTag    | find   |
+| scryRenderedDOMComponentsWithTag   | find   |
+| scryRenderedDOMComponentsWithClass | find   |
+
+Accepts CSS selectors, so if tou know how to write CSS, you know how to use this.
+
+Enzyme is an abstraction:
+
+- Behind the scenes:
+  - React Test Utils
+  - JSDOM (In-memory DOM)
+  - Cheerio (Fast jQuery style selectors)
+
+##### React Testing Library
+
+https://testing-library.com/docs/react-testing-library/intro/
