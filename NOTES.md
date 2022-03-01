@@ -508,26 +508,26 @@ Immutability: to change state, return a new object.
 ```javascript
 // Current state
 state = {
-  name: 'Cory House',
-  role: 'author',
+  name: "Cory House",
+  role: "author",
 };
 
 // Traditional App - Mutating state
-state.role = 'admin';
+state.role = "admin";
 return state;
 ```
 
 ```javascript
 // Current state
 state = {
-  name: 'Cory House',
-  role: 'author',
+  name: "Cory House",
+  role: "author",
 };
 
 // Returning new object. Not mutating state!
 return (state = {
-  name: 'Cory House',
-  role: 'admin',
+  name: "Cory House",
+  role: "admin",
 });
 ```
 
@@ -547,14 +547,14 @@ return (state = {
 Object.assign(target, ...sources);
 
 // Example
-Object.assign({}, state, { role: 'admin' });
+Object.assign({}, state, { role: "admin" });
 //            First argument should typically be an empty object
 ```
 
 #### Copy via Spread
 
 ```javascript
-const newState = { ...state, role: 'admin' };
+const newState = { ...state, role: "admin" };
 //                           Arguments on the right override arguments on the left
 
 const newUsers = [...state.users];
@@ -564,9 +564,9 @@ const newUsers = [...state.users];
 
 ```javascript
 const user = {
-  name: 'Cory',
+  name: "Cory",
   address: {
-    state: 'California',
+    state: "California",
   },
 };
 
@@ -594,17 +594,17 @@ Instead, clone only the sub-object(s) that have changed.
 #### Handle Data Changes via Immer
 
 ```javascript
-import produce from 'immer';
+import produce from "immer";
 
 const user = {
-  name: 'Cory',
+  name: "Cory",
   address: {
-    state: 'California',
+    state: "California",
   },
 };
 
 const userCopy = produce(user, (draftState) => {
-  draftState.address.state = 'New York';
+  draftState.address.state = "New York";
 });
 
 // Immer clones the nested address object for me.
@@ -740,7 +740,7 @@ function myReducer(state, action) {
 ```javascript
 function myReducer(state, action) {
   switch (action.type) {
-    case 'INCREMENT_COUNTER':
+    case "INCREMENT_COUNTER":
       // Can't do this:
       // state.counter++;
       // But can do this:
@@ -915,7 +915,7 @@ export const getCoursesSorted = createSelector(
   getAllCoursesSelector,
   (courses) => {
     return [...courses].sort((a, b) =>
-      a.title.localeCompare(b.title, 'en', { sensitivity: 'base' })
+      a.title.localeCompare(b.title, "en", { sensitivity: "base" })
     );
   }
 );
@@ -1097,7 +1097,7 @@ class CoursesPage extends React.Component {
 // This object is an "action". So the function is called the "action creator".
 // All actions must have a type property
 export function createCourse(course) {
-  return { type: 'CREATE_COURSE', course: course };
+  return { type: "CREATE_COURSE", course: course };
 }
 ```
 
@@ -1108,7 +1108,7 @@ Reducer: function that accepts state and action and returns a new state.
 ```javascript
 export default function courseReducer(state = [], action) {
   switch (action.type) {
-    case 'CREATE_COURSE':
+    case "CREATE_COURSE":
       state.push(action.course); // Don't do this. This mutates state.
   }
 }
@@ -1117,7 +1117,7 @@ export default function courseReducer(state = [], action) {
 ```javascript
 export default function courseReducer(state = [], action) {
   switch (action.type) {
-    case 'CREATE_COURSE':
+    case "CREATE_COURSE":
       return [...state, { ...action.course }];
     default:
       return state; // If the reducer receives an action that it doesn't care about, it should return the unchanged state.
@@ -1132,8 +1132,8 @@ Our Store:
 
 ```javascript
 const courses = [
-  { id: 1, title: 'Course 1' },
-  { id: 2, title: 'Course 2' },
+  { id: 1, title: "Course 1" },
+  { id: 2, title: "Course 2" },
 ];
 
 // courses.find(c => c.id == 2)
@@ -1143,8 +1143,8 @@ By ID:
 
 ```javascript
 const courses = {
-  1: { id: 1, title: 'Course 1' },
-  2: { id: 2, title: 'Course 2' },
+  1: { id: 1, title: "Course 1" },
+  2: { id: 2, title: "Course 2" },
 };
 
 // courses[2]
@@ -1170,7 +1170,7 @@ const composeEnhancers =
 ### Instantiate Store and Provider
 
 ```javascript
-import configureStore from './redux/configureStore';
+import configureStore from "./redux/configureStore";
 
 // It can be useful to pass initial state
 // into the store here if you're server
@@ -1181,7 +1181,7 @@ const store = configureStore();
 
 ```javascript
 // This will provide Redux store data to our React components.
-import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as ReduxProvider } from "react-redux";
 ```
 
 ### Connect Container Component
@@ -1294,17 +1294,17 @@ const mapDispatchToProps = {
 
 ```javascript
 // actionTypes.js
-export const CREATE_COURSE = 'CREATE_COURSE';
+export const CREATE_COURSE = "CREATE_COURSE";
 
 // courseActions.js
-import * as types from './actionTypes';
+import * as types from "./actionTypes";
 
 export function createCourse(course) {
   return { type: types.CREATE_COURSE, course };
 }
 
 // courseReducer.js
-import * as types from '../actions/actionTypes';
+import * as types from "../actions/actionTypes";
 
 export default function courseReducer(state = [], action) {
   switch (action.type) {
@@ -1392,9 +1392,9 @@ You can write custom logic that runs here.
 // Logs all actions and states after they are dispatched
 const logger = (store) => (next) => (action) => {
   console.group(action.type);
-  console.info('dispatching', action);
+  console.info("dispatching", action);
   let result = next(action);
-  console.log('next state', store.getState());
+  console.log("next state", store.getState());
   console.groupEnd();
   return result;
 };
@@ -1459,8 +1459,8 @@ The big win with Thunks: your component can call sync an async action the same w
 ### Add First Thunk
 
 ```javascript
-import * as types from './actionTypes';
-import * as courseApi from '../../api/courseApi';
+import * as types from "./actionTypes";
+import * as courseApi from "../../api/courseApi";
 
 export function loadCourses() {
   return function (dispatch) {
@@ -1505,13 +1505,13 @@ const mapDispatchToProps = {
 useEffect(() => {
   if (courses.length === 0) {
     loadCourses().catch((error) => {
-      alert('Loading courses failed' + error);
+      alert("Loading courses failed" + error);
     });
   }
 
   if (authors.length === 0) {
     loadAuthors().catch((error) => {
-      alert('Loading authors failed' + error);
+      alert("Loading authors failed" + error);
     });
   }
 }, []);
@@ -1539,7 +1539,7 @@ function handleChange(event) {
     ...prevCourse,
     // This is JavaScript's computed syntax. It allows
     // us to reference a property via a variable.
-    [name]: name === 'authorId' ? parseInt(value, 10) : value,
+    [name]: name === "authorId" ? parseInt(value, 10) : value,
     //                                     Events returns numbers as strings,
     //                                     so we need to convert authorId
     //                                     to an int here.
@@ -1614,7 +1614,7 @@ function handleSave(event) {
   saveCourse(course).then(() => {
     // So you can use <Redirect>
     // or history to redirect
-    history.pushState('/courses');
+    history.pushState("/courses");
   });
 }
 ```
@@ -1700,3 +1700,9 @@ Optimistic update: update the UI before the API call is complete.
 ### Add Spinner to Course Pages
 
 Prefer fragments over divs since fragments avoid creating needless elements in the DOM.
+
+### Implement Client-Side Validation
+
+Let's add client-side validation so users get validation feedbak immediately.
+
+Tip: if your API is built in Node, you can share your validation logic on client and server via npm!
