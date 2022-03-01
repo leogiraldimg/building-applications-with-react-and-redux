@@ -1747,3 +1747,21 @@ handleDeleteCourse = (course) => {
   this.props.actions.deleteCourse(course);
 };
 ```
+
+### Async/await
+
+Async/Await uses promises behind scenes, so it can easily interact with promise-based code.
+
+```javascript
+async function handleSaveCourse(course) {
+  try {
+    //               The function will pause execution and continue when the async call completes.
+    const courseId = await saveCourse(course);
+    return courseId; // This returns a promise.
+  } catch (error) {
+    console.log(error);
+  }
+}
+```
+
+Benefit: your async functions are explicity marked.
