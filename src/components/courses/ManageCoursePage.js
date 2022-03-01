@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { loadCourses, saveCourse } from '../../redux/actions/courseActions';
-import { loadAuthors } from '../../redux/actions/authorActions';
-import PropTypes from 'prop-types';
-import CourseForm from './CourseForm';
-import { newCourse } from '../../../tools/mockData';
-import Spinner from '../common/Spinner';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { loadCourses, saveCourse } from "../../redux/actions/courseActions";
+import { loadAuthors } from "../../redux/actions/authorActions";
+import PropTypes from "prop-types";
+import CourseForm from "./CourseForm";
+import { newCourse } from "../../../tools/mockData";
+import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 function ManageCoursePage({
   courses,
@@ -24,7 +24,7 @@ function ManageCoursePage({
   useEffect(() => {
     if (courses.length === 0) {
       loadCourses().catch((error) => {
-        alert('Loading courses failed' + error);
+        alert("Loading courses failed" + error);
       });
     } else {
       setCourse({ ...props.course });
@@ -32,7 +32,7 @@ function ManageCoursePage({
 
     if (authors.length === 0) {
       loadAuthors().catch((error) => {
-        alert('Loading authors failed' + error);
+        alert("Loading authors failed" + error);
       });
     }
   }, [props.course]);
@@ -42,7 +42,7 @@ function ManageCoursePage({
 
     setCourse((prevCourse) => ({
       ...prevCourse,
-      [name]: name === 'authorId' ? parseInt(value, 10) : value,
+      [name]: name === "authorId" ? parseInt(value, 10) : value,
     }));
   }
 
@@ -50,8 +50,8 @@ function ManageCoursePage({
     event.preventDefault();
     setSaving(true);
     saveCourse(course).then(() => {
-      toast.success('Course saved.');
-      history.push('/courses');
+      toast.success("Course saved.");
+      history.push("/courses");
     });
   }
 

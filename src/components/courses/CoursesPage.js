@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import * as courseActions from '../../redux/actions/courseActions';
-import * as authorActions from '../../redux/actions/authorActions';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import CourseList from './CourseList';
-import { Redirect } from 'react-router-dom';
-import Spinner from '../common/Spinner';
+import React from "react";
+import { connect } from "react-redux";
+import * as courseActions from "../../redux/actions/courseActions";
+import * as authorActions from "../../redux/actions/authorActions";
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
+import CourseList from "./CourseList";
+import { Redirect } from "react-router-dom";
+import Spinner from "../common/Spinner";
 
 class CoursesPage extends React.Component {
   state = {
@@ -18,13 +18,13 @@ class CoursesPage extends React.Component {
 
     if (courses.length === 0) {
       actions.loadCourses().catch((error) => {
-        alert('Loading courses failed' + error);
+        alert("Loading courses failed" + error);
       });
     }
 
     if (authors.length === 0) {
       actions.loadAuthors().catch((error) => {
-        alert('Loading authors failed' + error);
+        alert("Loading authors failed" + error);
       });
     }
   }

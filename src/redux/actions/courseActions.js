@@ -1,6 +1,6 @@
-import * as types from './actionTypes';
-import * as courseApi from '../../api/courseApi';
-import { beginApiCall } from './apiStatusActions';
+import * as types from "./actionTypes";
+import * as courseApi from "../../api/courseApi";
+import { beginApiCall } from "./apiStatusActions";
 
 export function loadCourseSuccess(courses) {
   return { type: types.LOAD_COURSES_SUCCESS, courses };
