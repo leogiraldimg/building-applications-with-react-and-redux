@@ -1832,3 +1832,11 @@ Enzyme is an abstraction:
 ##### React Testing Library
 
 https://testing-library.com/docs/react-testing-library/intro/
+
+### Configure Jest
+
+Jest automatically finds tests in files that end in _.test.js_ or _.spec.js_.
+
+```console
+$ jest --watch # Now Jest will re-run tests when we hit save
+```
