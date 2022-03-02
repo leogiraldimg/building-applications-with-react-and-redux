@@ -1888,3 +1888,9 @@ Summary:
 
 - Shallow: fast. Lightweight. Test one component in isolation
 - Mount: more realistic. Render component and children
+
+### Test React with React Testing Library
+
+With React Testing Library, there is no shallow rendering. Components are always mounted.
+
+Unlike Enzyme, you don't need to call expect. With React Testing Library, the assertion is part of your query.
