@@ -1927,3 +1927,36 @@ Solutions:
 
 1. Wrap with <Provider>
 2. Add named export for unconnected component -> this is simpler and what I recommend
+
+### Testing Connected React Components
+
+```javascript
+// Now this file contains 2 exports:
+// 1. Unconnected component
+// 2. Connected component
+export function ManageCoursePage({
+  courses,
+  authors,
+  loadAuthors,
+  loadCourses,
+  saveCourse,
+  history,
+  ...props
+}) {
+  ...
+}
+
+ManageCoursePage.propTypes = {
+  ...
+};
+
+function mapStateToProps(state, ownProps) {
+  ...
+}
+
+const mapDispatchToProps = {
+  ...
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+```
