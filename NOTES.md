@@ -1960,3 +1960,24 @@ const mapDispatchToProps = {
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
 ```
+
+### Testing Action Creators
+
+```javascript
+// This test confirms when I call the createCourseSuccess
+// action creator, I get the expected object shape back.
+describe("createCourseSuccess", () => {
+  // arrange
+  const course = courses[0];
+  const expectedAction = {
+    type: types.CREATE_COURSE_SUCCESS,
+    course,
+  };
+
+  // act
+  const action = courseActions.createCourseSuccess(course);
+
+  // assert
+  expect(action).toEqual(expectedAction);
+});
+```
