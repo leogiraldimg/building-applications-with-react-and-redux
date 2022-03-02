@@ -1846,3 +1846,45 @@ $ jest --watch # Now Jest will re-run tests when we hit save
 - jest.fn() creates an empty mock function
 - Snapshots protect from making accidental changes to component output
 - Name snapshots well, so other developers are clear what the expected output is
+
+### Test React with Enzyme
+
+Two ways to render a React Component for testing with Enzyme:
+
+1. shallow - renders single component
+2. mount - renders component with children
+
+With shallow:
+
+- No DOM is created
+- No child components are rendered
+
+With mount:
+
+- DOM is created in memory via JSDOM
+- Child components are rendered
+
+```javascript
+// Note how with shalloe render you search for the React component tag
+it("contains 3 NavLinks via shallow", () => {
+  const numLinks = shallow(<Header />).find("NavLink").length;
+  expect(numLinks).toEqual(3);
+});
+
+// Note how with mount you search for the final rendered HTML since it generates the final DOM.
+// We also need to pull in React Router's memoryRouter for testing since the Header expects to have React Router's props passed in.
+it("contains 3 anchors via mount", () => {
+  const numAnchors = mount(
+    <MemoryRouter>
+      <Header />
+    </MemoryRouter>
+  ).find("a").length;
+
+  expect(numAnchors).toEqual(3);
+});
+```
+
+Summary:
+
+- Shallow: fast. Lightweight. Test one component in isolation
+- Mount: more realistic. Render component and children
