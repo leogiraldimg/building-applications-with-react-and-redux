@@ -1840,3 +1840,9 @@ Jest automatically finds tests in files that end in _.test.js_ or _.spec.js_.
 ```console
 $ jest --watch # Now Jest will re-run tests when we hit save
 ```
+
+### Test React with Jest Snapshot Tests
+
+- jest.fn() creates an empty mock function
+- Snapshots protect from making accidental changes to component output
+- Name snapshots well, so other developers are clear what the expected output is
