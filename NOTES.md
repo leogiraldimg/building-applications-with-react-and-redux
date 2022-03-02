@@ -1894,3 +1894,16 @@ Summary:
 With React Testing Library, there is no shallow rendering. Components are always mounted.
 
 Unlike Enzyme, you don't need to call expect. With React Testing Library, the assertion is part of your query.
+
+## Testing Redux
+
+### Intro
+
+Test:
+
+- Connected components
+- Redux
+  - Action creators
+  - Thunks
+  - Reducers
+  - Store
