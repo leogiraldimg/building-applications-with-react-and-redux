@@ -1907,3 +1907,23 @@ Test:
   - Thunks
   - Reducers
   - Store
+
+### Overview: Testing Connected React Components
+
+Two goals:
+
+1. Test markup
+2. Test behavior
+
+#### Testing Container Components
+
+They're wrapped in a call to connect! What do I do?
+
+```javascript
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+```
+
+Solutions:
+
+1. Wrap with <Provider>
+2. Add named export for unconnected component -> this is simpler and what I recommend
