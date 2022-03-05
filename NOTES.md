@@ -2043,3 +2043,7 @@ it("should add course when passed CREATE_COURSE_SUCCESS", () => {
   expect(newState[2].title).toEqual("C");
 });
 ```
+
+### Testing the Store
+
+This will be an integration test. We're going to test the integration of our action creators, our store, and our reducer.
