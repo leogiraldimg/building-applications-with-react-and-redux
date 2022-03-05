@@ -2019,3 +2019,27 @@ describe("Async actions", () => {
   });
 });
 ```
+
+### Testing Reducers
+
+"...people who nerver wrote unit tests for front-end apps started writing them because it just so easy to test reducers." _Dan Abramov_
+
+**Given** this input, **assert** this input.
+
+```javascript
+it("should add course when passed CREATE_COURSE_SUCCESS", () => {
+  // arrange
+  const initialState = [{ title: "A" }, { title: "B" }]; // Note: I'm omitting properties we don't need for the test.
+  const newCourse = { title: "C" };
+  const action = actions.createCourseSuccess(newCourse);
+
+  // act
+  const newState = courseReducer(initialState, action);
+
+  // assert
+  expect(newState.length).toEqual(3);
+  expect(newState[0].title).toEqual("A");
+  expect(newState[1].title).toEqual("B");
+  expect(newState[2].title).toEqual("C");
+});
+```
