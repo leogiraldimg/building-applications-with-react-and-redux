@@ -2069,3 +2069,27 @@ Production build:
 
 Our goal: bundle our app into these 3 files.
 ```
+
+### Set Up Production Redux Store
+
+Production build process:
+
+- Lint and runs tests
+- Bundle and minify JS and CSS
+- Generate JS and CSS sourcemaps
+- Exclude dev-specific concerns
+- Build React in production mode
+- Generate bundle report
+- Run the build on a local webserver
+
+```javascript
+// CommonJS was popularized by Node.
+// It has a different syntax for importing and exporting.
+// I'm using it here to dynamically import the appropriate
+// file at build time.
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./configureStore.prod");
+} else {
+  module.exports = require("./configureStore.dev");
+}
+```
