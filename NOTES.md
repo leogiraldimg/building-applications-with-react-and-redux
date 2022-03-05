@@ -2093,3 +2093,68 @@ if (process.env.NODE_ENV === "production") {
   module.exports = require("./configureStore.dev");
 }
 ```
+
+### Set up Webpack
+
+```javascript
+// Display bundle stats
+new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: "static" }),
+new webpack.DefinePlugin({
+  // This global makes sure React is built in prod mode.
+  "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+  "process.env.API_URL": JSON.stringify("http://localhost:3001"),
+}),
+new HtmlWebpackPlugin({
+  template: "src/index.html",
+  favicon: "src/favicon.ico",
+  minify: {
+    // see https://github.com/kangax/html-minifier#options-quick-reference
+    removeComments: true,
+    collapseWhitespace: true,
+    removeRedundantAttributes: true,
+    useShortDoctype: true,
+    removeEmptyAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    keepClosingSlash: true,
+    minifyJS: true,
+    minifyCSS: true,
+    minifyURLs: true,
+  },
+}),
+```
+
+```javascript
+module: {
+  rules: [
+    {
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      use: ["babel-loader", "eslint-loader"],
+    },
+    {
+      test: /(\.css)$/,
+      // Loaders run from the bottom up. So the postcss-loader will run first.
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
+          loader: "css-loader",
+          options: {
+            sourceMap: true,
+          },
+        },
+        {
+          // PostCss can perform a variety of precessing on CSS.
+          // We're using PostCSS with the cssnano plugin to minify our CSS.
+          loader: "postcss-loader",
+          options: {
+            postcssOptions: {
+              plugins: [() => [require("cssnano")]],
+            },
+            sourceMap: true,
+          },
+        },
+      ],
+    },
+  ],
+},
+```
