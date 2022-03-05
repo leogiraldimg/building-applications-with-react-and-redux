@@ -16,3 +16,5 @@ sketch
 
 coverage/
 tools/db.json
+
+build/
