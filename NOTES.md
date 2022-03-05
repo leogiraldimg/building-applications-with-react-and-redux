@@ -2047,3 +2047,25 @@ it("should add course when passed CREATE_COURSE_SUCCESS", () => {
 ### Testing the Store
 
 This will be an integration test. We're going to test the integration of our action creators, our store, and our reducer.
+
+## Production Builds
+
+### Production Build Plan Overview
+
+Source code:
+
+```
+/src
+  lots of files...
+```
+
+Production build:
+
+```
+/build
+  index.html
+  bundle.js
+  styles.css
+
+Our goal: bundle our app into these 3 files.
+```
