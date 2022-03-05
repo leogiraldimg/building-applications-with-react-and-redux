@@ -1981,3 +1981,41 @@ describe("createCourseSuccess", () => {
   expect(action).toEqual(expectedAction);
 });
 ```
+
+### Testing Thunks
+
+Mock two things:
+
+- Store -> redux-mock-store
+- HTTP calls -> fetch-mock
+
+```javascript
+describe("Async actions", () => {
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  // If you have multiple thunks, you can copy/paste this pattern to test them quickly.
+  describe("Load Courses Thunk", () => {
+    it("should create BEING_API_CALL AND LOAD_COURSES_SUCCESS when loading courses", () => {
+      // This captures all fetch calls and responds with some mock data.
+      fetchMock.mock("*", {
+        body: courses,
+        headers: { "content-type": "application/json" },
+      });
+
+      // Goal: assert these actions are created
+      const expectedActions = [
+        { type: types.BEGIN_API_CALL },
+        { type: types.LOAD_COURSES_SUCCESS, courses },
+      ];
+
+      const store = mockStore({ courses: [] });
+
+      return store.dispatch(courseActions.loadCourses()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    });
+  });
+});
+```
